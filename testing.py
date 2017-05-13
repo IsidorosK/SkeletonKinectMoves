@@ -40,7 +40,7 @@ import pygame
 from pygame.color import THECOLORS
 from pygame.locals import *
 import time
-import functions,gui
+from functions import functionsClass
 import winsound
 from PyQt4 import QtGui,QtCore
 
@@ -206,7 +206,6 @@ def draw_skeletons(skeletons):
         draw_skeleton_data(data, index, RIGHT_LEG)
 
         #subtract previous x,y,z position for each jointId to measure speed gesture
-
         if data.SkeletonPositions[JointId.HandRight].y != 0.0 and data.SkeletonPositions[JointId.HandRight].x != 0.0 and data.SkeletonPositions[JointId.HandRight].z != 0.0:
             global HandRightX, HandRightY, HandRightZ
             HandRightY = data.SkeletonPositions[JointId.HandRight].y - HandRightY
@@ -354,11 +353,8 @@ def depth_frame_ready(frame):
     with screen_lock:
 
         address = surface_to_array(screen)
-
         frame.image.copy_bits(address)
-
         del address
-
         if skeletons is not None and draw_skeleton:
             draw_skeletons(skeletons)
 
@@ -372,11 +368,8 @@ def video_frame_ready(frame):
     with screen_lock:
 
         address = surface_to_array(screen)
-
         frame.image.copy_bits(address)
-
         del address
-
         if skeletons is not None and draw_skeleton:
             draw_skeletons(skeletons)
 
@@ -384,7 +377,7 @@ def video_frame_ready(frame):
 
 if __name__=='__main__':
 
-
+    functionsObj = functionsClass()
     full_screen = False
 
     draw_skeleton = True
@@ -474,10 +467,10 @@ if __name__=='__main__':
                 totalY = (headY + CenterShoulderY + LeftShoulderY + RightShoulderY + CenterHipY) / 5
                 totalZ = (headZ + CenterShoulderZ + LeftShoulderZ + RightShoulderZ + CenterHipZ) / 5
 
+                functionsObj.recognize_sitting(totalY,totalZ)
+                #functions.recognize_sitting(totalY, totalZ)
 
-                functions.recognize_sitting(totalY, totalZ)
-
-                functions.write_speed_Joints_To_Txt(HipCenterX, HipCenterY, HipCenterZ, HandRightX, HandRightY, HandRightZ,
+                functionsObj.write_speed_Joints_To_Txt(HipCenterX, HipCenterY, HipCenterZ, HandRightX, HandRightY, HandRightZ,
                                               HandLeftX, HandLeftY, HandLeftZ, ElbowLeftX, ElbowLeftY, ElbowLeftZ
                                               , ElbowRightX, ElbowRightY, ElbowRightZ, WristLeftX, WristLeftY,
                                               WristLeftZ, WristRightX, WristRightY, WristRightZ, ShoulderLeftX,
