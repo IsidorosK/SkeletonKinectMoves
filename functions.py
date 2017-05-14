@@ -1,4 +1,4 @@
-from testing import *
+
 import math
 from threshold import globalVariables
 
@@ -7,7 +7,7 @@ class functionsClass():
     def __init__(self):
         pass
 
-    def recognize_sitting(totalY,totalZ):
+    def recognize_sitting(self,totalY,totalZ):
         k = globalVariables()
 
         if totalY < k.newSitY and totalZ > k.newSitZ:
@@ -28,7 +28,7 @@ class functionsClass():
 
 
 
-    def write_speed_Joints_To_Txt(HipCenterX, HipCenterY, HipCenterZ, HandRightX, HandRightY, HandRightZ, HandLeftX, HandLeftY, HandLeftZ, ElbowLeftX, ElbowLeftY, ElbowLeftZ,
+    def write_speed_Joints_To_Txt(self,HipCenterX, HipCenterY, HipCenterZ, HandRightX, HandRightY, HandRightZ, HandLeftX, HandLeftY, HandLeftZ, ElbowLeftX, ElbowLeftY, ElbowLeftZ,
                                   ElbowRightX, ElbowRightY, ElbowRightZ, WristLeftX, WristLeftY, WristLeftZ, WristRightX, WristRightY, WristRightZ, ShoulderLeftX, ShoulderLeftY,
                                   ShoulderLeftZ, ShoulderRightX, ShoulderRightY, ShoulderRightZ, ShoulderCenterX, ShoulderCenterY, ShoulderCenterZ, HeadX, HeadY, HeadZ, SpineX, SpineY, SpineZ,
                                   HipLeftX, HipLeftY, HipLeftZ, HipRightX, HipRightY, HipRightZ, KneeLeftX, KneeLeftY, KneeLeftZ, KneeRightX, KneeRightY, KneeRightZ,

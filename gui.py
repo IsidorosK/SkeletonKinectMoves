@@ -4,10 +4,8 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import pyqtSignal,QObject,pyqtSlot
 import subprocess
 import os
-from gloVariables import globalVariables
 
 
-k=globalVariables()
 class Communicate(QtCore.QObject):
     runApp=QtCore.pyqtSignal()
     burger=pyqtSignal()
@@ -42,6 +40,8 @@ class PopUpButtons(QWidget):
 
 class Example(QtGui.QMainWindow):
 
+
+
     def __init__(self):
 
         super(Example,self).__init__()
@@ -52,8 +52,8 @@ class Example(QtGui.QMainWindow):
 
     def initUI(self):
 
+        self.vars = globalVariables()
         self.r=Communicate()
-
 
         runAction=QAction("Run",self)
         runAction.setShortcut("Ctrl+R")
@@ -98,8 +98,6 @@ class Example(QtGui.QMainWindow):
         sld2.setGeometry(30,180,100,30)
         sld2.setValue(50)
 
-
-
         plusbutton = QtGui.QPushButton('+', self)
         plusbutton.setCheckable(True)
         plusbutton.setGeometry(40,220,50,30)
@@ -111,12 +109,12 @@ class Example(QtGui.QMainWindow):
         minusbutton=QtGui.QPushButton('-',self)
         minusbutton.setCheckable(True)
         minusbutton.setGeometry(110,220,50,30)
-        minusbutton.clicked.connect(self.decrementY)
+        minusbutton.clicked.connect(self.addY)
 
         plusbutton2=QtGui.QPushButton('+',self)
         plusbutton2.setCheckable(True)
         plusbutton2.setGeometry(40,260,50,30)
-        plusbutton2.clicked.connect(self.addZ)
+        plusbutton2.clicked.connect(self.addY)
 
         zlbl=QtGui.QLabel('Z',self)
         zlbl.move(95,260)
@@ -124,7 +122,7 @@ class Example(QtGui.QMainWindow):
         minusbutton2=QtGui.QPushButton('-',self)
         minusbutton2.setCheckable(True)
         minusbutton2.setGeometry(110,260,50,30)
-        minusbutton2.clicked.connect(self.decZ)
+        minusbutton2.clicked.connect(self.addY)
 
         menubar = self.menuBar()
         runMenu=menubar.addMenu('&Run')
@@ -137,7 +135,6 @@ class Example(QtGui.QMainWindow):
         helpAction.triggered.connect(self.aboutKinect)
 
         self.textEdit = QtGui.QTextEdit()
-
         self.l1=QtGui.QLabel("",self)
         self.l1.move(100,100)
 
@@ -147,33 +144,14 @@ class Example(QtGui.QMainWindow):
         self.setWindowIcon(QtGui.QIcon('logo.png'))
         self.show()
 
-
-    def addZ(self):
-        k.newSitZ += k.numberAddDec
-        globalVariables.updateVariable(k.newSitZ)
-        print "Aukshsh Z: ",k.newSitZ
-        return k.newSitZ
-
-
-    def decZ(self):
-        k.newSitZ -= k.numberAddDec
-        print "Meiwsh Z : ",k.newSitZ
-
-    def decrementY(self):
-        k.newSitY -= k.numberAddDec
-        print "Meiwneis Y : ",k.newSitY
-
     def addY(self):
-        k.newSitY += k.numberAddDec
-        print  "Aukshsh Y : ",k.newSitY
-
+        print "HEllo"
 
     def radiostate(self,rb):
         if rb.text() == "Sit":
             if rb.isChecked() ==True:
                 print "Sit is selected"
                 sender=self.sender()
-
         if rb.text() =="Eat":
             if rb.isChecked()==True:
                 print "Eat is selected"
@@ -185,11 +163,9 @@ class Example(QtGui.QMainWindow):
         elif value < 49 and value >= 45:
             value=-0.0362357378123
             print 'Value is %1.13f'%value
-
         elif value < 44  and value >= 39:
             value=-0.0403124567346
             print 'Value is %1.13f'%value
-
         elif value < 38 and value >= 33:
             value=-0.0449852123904
             print 'Value is %1.13f'%value
@@ -218,7 +194,6 @@ class Example(QtGui.QMainWindow):
         os.system('otherAction.py')
 
     def aboutKinect(self):
-
         self.about=popUpWindow()
         self.about.show()
 

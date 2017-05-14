@@ -398,46 +398,30 @@ if __name__=='__main__':
 
     kinect.skeleton_engine.enabled = True
 
-
     def post_frame(frame):
 
         try:
-
             pygame.event.post(pygame.event.Event(KINECTEVENT, skeletons=frame.SkeletonData))
 
         except:
-
             # event queue full
-
             pass
 
-
     kinect.skeleton_frame_ready += post_frame
-
     kinect.depth_frame_ready += depth_frame_ready
-
     kinect.video_frame_ready += video_frame_ready
-
     kinect.video_stream.open(nui.ImageStreamType.Video, 2, nui.ImageResolution.Resolution640x480, nui.ImageType.Color)
-
     kinect.depth_stream.open(nui.ImageStreamType.Depth, 2, nui.ImageResolution.Resolution320x240, nui.ImageType.Depth)
 
     print
-
     print('Controls: ')
-
     print('     d - Switch to depth view')
-
     print('     v - Switch to video view')
-
     print('     s - Toggle displaing of the skeleton')
-
     print('     u - Increase elevation angle')
-
     print('     j - Decrease elevation angle')
 
     # main game loop
-
     done = False
     raised=False
     start_time = time.time()
@@ -447,15 +431,11 @@ if __name__=='__main__':
 
         dispInfo = pygame.display.Info()
         frame= kinect.skeleton_engine.get_next_frame()
-        #sec2 = time.time() - start_time
-        #print ("%.2f" % sec2)
         if e.type == pygame.QUIT:
-
             done = True
             break
 
         elif e.type == KINECTEVENT:
-
             skeletons = e.skeletons
             if (k == 0):
                 winsound.Beep(2500, 1000)
@@ -484,9 +464,7 @@ if __name__=='__main__':
                                               FootRightX, FootRightY, FootRightZ, FootLeftX, FootLeftY, FootLeftZ)
 
         elif e.type == KEYDOWN:
-
             if e.key == K_ESCAPE:
-
                 done = True
                 fo=open("logs.txt",'a')
                 fo.write("--------------------------------------- End\n ")
@@ -496,31 +474,22 @@ if __name__=='__main__':
             elif e.key == K_d:
 
                 with screen_lock:
-
                     screen = pygame.display.set_mode(DEPTH_WINSIZE, 0, 16)
-
                     video_display = False
 
             elif e.key == K_v:
-
                 with screen_lock:
-
                     screen = pygame.display.set_mode(VIDEO_WINSIZE, 0, 32)
-
                     video_display = True
 
             elif e.key == K_s:
-
                 draw_skeleton = not draw_skeleton
 
             elif e.key == K_u:
-
                 kinect.camera.elevation_angle = kinect.camera.elevation_angle + 2
 
             elif e.key == K_j:
-
                 kinect.camera.elevation_angle = kinect.camera.elevation_angle - 2
 
             elif e.key == K_x:
-
                 kinect.camera.elevation_angle = 2
