@@ -5,6 +5,7 @@ from PyQt4.QtCore import pyqtSignal,QObject,pyqtSlot
 import subprocess
 import os
 from threshold import globalVariables
+import thread
 
 class Communicate(QtCore.QObject):
     runApp=QtCore.pyqtSignal()
@@ -18,9 +19,7 @@ class popUpWindow(QWidget):
 
     def initUI(self):
         lbl=QtGui.QLabel('<b>This is my thesis project </b>',self)
-
         lbl.move(15,10)
-
         self.setGeometry(500,500,400,150)
         self.setWindowTitle('About Devs')
         self.show()
@@ -29,7 +28,6 @@ class PopUpButtons(QWidget):
 
     def __init__(self):
         super(PopUpButtons,self).__init__()
-
         self.intUI()
 
     def intUI(self):
@@ -41,10 +39,8 @@ class PopUpButtons(QWidget):
 class Example(QtGui.QMainWindow):
 
     def __init__(self):
-
         super(Example,self).__init__()
         self.initUI()
-
 
     def run(self,path):
         subprocess.call(['pythonw',path])
@@ -85,7 +81,7 @@ class Example(QtGui.QMainWindow):
         plusbutton = QtGui.QPushButton('+', self)
         plusbutton.setCheckable(True)
         plusbutton.setGeometry(40,220,50,30)
-        plusbutton.clicked.connect(self.glvars.numberAddY)
+        plusbutton.clicked.connect(self.glvars.addsitY)
 
         ylbl = QtGui.QLabel('Y', self)
         ylbl.move(95, 220)
@@ -154,7 +150,10 @@ class Example(QtGui.QMainWindow):
             self.setWindowTitle('')
 
     def startButton(self):
-         os.system('testing.py')
+        try:
+            thread.start_new_thread(os.system('testing.py'))
+        except:
+            print "Unable to start thread"
 
     def otherActionButton(self):
         os.system('otherAction.py')
