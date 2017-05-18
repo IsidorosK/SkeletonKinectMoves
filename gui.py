@@ -4,7 +4,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import pyqtSignal,QObject,pyqtSlot
 import subprocess
 import os
-
+from threshold import globalVariables
 
 class Communicate(QtCore.QObject):
     runApp=QtCore.pyqtSignal()
@@ -40,19 +40,18 @@ class PopUpButtons(QWidget):
 
 class Example(QtGui.QMainWindow):
 
-
-
     def __init__(self):
 
         super(Example,self).__init__()
         self.initUI()
+
 
     def run(self,path):
         subprocess.call(['pythonw',path])
 
     def initUI(self):
 
-        self.vars = globalVariables()
+        self.glvars = globalVariables()
         self.r=Communicate()
 
         runAction=QAction("Run",self)
@@ -83,25 +82,10 @@ class Example(QtGui.QMainWindow):
         self.rb2.setChecked(True)
         self.rb2.toggled.connect(lambda:self.radiostate(self.rb2))
 
-        sld=QtGui.QSlider(QtCore.Qt.Horizontal,self)
-        sld.setFocusPolicy(QtCore.Qt.NoFocus)
-        sld.setGeometry(30,130,100,30)
-        sld.setValue(50)
-        sld.valueChanged[int].connect(self.changeValue)
-
-        lcd=QtGui.QLCDNumber(self)
-        sld.valueChanged.connect(lcd.display)
-        lcd.setGeometry(190,110,100,60)
-
-        sld2=QtGui.QSlider(QtCore.Qt.Horizontal,self)
-        sld2.setFocusPolicy(QtCore.Qt.NoFocus)
-        sld2.setGeometry(30,180,100,30)
-        sld2.setValue(50)
-
         plusbutton = QtGui.QPushButton('+', self)
         plusbutton.setCheckable(True)
         plusbutton.setGeometry(40,220,50,30)
-        plusbutton.clicked.connect(self.addY)
+        plusbutton.clicked.connect(self.glvars.numberAddY)
 
         ylbl = QtGui.QLabel('Y', self)
         ylbl.move(95, 220)
@@ -145,7 +129,7 @@ class Example(QtGui.QMainWindow):
         self.show()
 
     def addY(self):
-        print "HEllo"
+        print "Hello"
 
     def radiostate(self,rb):
         if rb.text() == "Sit":
@@ -156,24 +140,6 @@ class Example(QtGui.QMainWindow):
             if rb.isChecked()==True:
                 print "Eat is selected"
 
-    def changeValue(self,value):
-        if value==50:
-            value=-0.0336414869782
-            print 'Value is %1.13f'%value
-        elif value < 49 and value >= 45:
-            value=-0.0362357378123
-            print 'Value is %1.13f'%value
-        elif value < 44  and value >= 39:
-            value=-0.0403124567346
-            print 'Value is %1.13f'%value
-        elif value < 38 and value >= 33:
-            value=-0.0449852123904
-            print 'Value is %1.13f'%value
-
-        elif value < 33 and value >=27:
-            value=-0.046
-        else:
-            print "Above"
 
     def eatOn(self,state):
         if state==QtCore.Qt.Checked:
