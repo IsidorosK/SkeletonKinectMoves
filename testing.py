@@ -29,11 +29,8 @@
 # permissions and limitations under the License.
 
 import thread
-
 import itertools
-
 import ctypes
-
 from pykinect import nui
 from pykinect.nui import JointId
 import pygame
@@ -42,13 +39,10 @@ from pygame.locals import *
 import time
 from functions import functionsClass
 import winsound
-from PyQt4 import QtGui,QtCore
 
 
 KINECTEVENT = pygame.USEREVENT
-
 DEPTH_WINSIZE = 320, 240
-
 VIDEO_WINSIZE = 640, 480
 
 pygame.init()
@@ -136,11 +130,8 @@ def draw_skeleton_data(pSkelton, index, positions, width=4):
 
     for position in itertools.islice(positions, 1, None):
         next = pSkelton.SkeletonPositions[position.value]
-
         curstart = skeleton_to_depth_image(start, dispInfo.current_w, dispInfo.current_h)
-
         curend = skeleton_to_depth_image(next, dispInfo.current_w, dispInfo.current_h)
-
         pygame.draw.line(screen, SKELETON_COLORS[index], curstart, curend, width)
 
         start = next
@@ -183,7 +174,6 @@ def surface_to_array(surface):
                             ctypes.byref(address), ctypes.byref(size))
 
     bytes = (ctypes.c_byte * size.value).from_address(address.value)
-
     bytes.object = buffer_interface
 
     return bytes
@@ -192,11 +182,8 @@ def surface_to_array(surface):
 def draw_skeletons(skeletons):
     for index, data in enumerate(skeletons):
         # draw the Head
-
         HeadPos = skeleton_to_depth_image(data.SkeletonPositions[JointId.Head], dispInfo.current_w, dispInfo.current_h)
-
         draw_skeleton_data(data, index, SPINE, 10)
-
         pygame.draw.circle(screen, SKELETON_COLORS[index], (int(HeadPos[0]), int(HeadPos[1])), 20, 0)
 
         # drawing the limbs
