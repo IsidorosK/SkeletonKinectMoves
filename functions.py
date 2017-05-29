@@ -18,9 +18,9 @@ class functionsClass():
         elif totalY < 0.0407887405232 and totalZ < 1.8546612215 and totalZ > 1.2546612215:
             print totalY
             print "Kathetai"
-        elif totalY < k.newLimitY and totalZ > k.newLimitZ:
+        elif totalY < k.defaultLimitY and totalZ > k.defaultLimitZ:
             print "Paei na katsei or shkwnetai"
-        elif totalY > k.newStandY and totalZ > k.newStandZ:
+        elif totalY > k.defaultStandY and totalZ > k.defaultStandZ:
             print "Orthios"
         else:
             print "Den kathetai"
