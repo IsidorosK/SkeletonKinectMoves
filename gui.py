@@ -1,11 +1,9 @@
-import sys
 from PyQt4 import QtGui,QtCore
 from PyQt4.QtGui import *
-from PyQt4.QtCore import pyqtSignal,QObject,pyqtSlot
-import subprocess
-import os
+from PyQt4.QtCore import QThread,pyqtSignal,QObject,pyqtSlot
+import os,time,sys
 from threshold import globalVariables
-import thread
+from multiprocessing import Process
 
 class Communicate(QtCore.QObject):
     runApp=QtCore.pyqtSignal()
@@ -39,11 +37,8 @@ class PopUpButtons(QWidget):
 class Example(QtGui.QMainWindow):
 
     def __init__(self):
-        super(Example,self).__init__()
+        super(Example, self).__init__()
         self.initUI()
-
-    def run(self,path):
-        subprocess.call(['pythonw',path])
 
     def initUI(self):
 
@@ -68,16 +63,6 @@ class Example(QtGui.QMainWindow):
         otherActionButton.move(190,40)
         otherActionButton.clicked.connect(self.otherActionButton)
 
-        self.rb=QtGui.QRadioButton('Sit',self)
-        self.rb.move(40,80)
-        self.rb.setChecked(False)
-        self.rb.toggled.connect(lambda:self.sitOn(self.rb))
-
-        self.rb2=QtGui.QRadioButton('Eat',self)
-        self.rb2.move(40,100)
-        self.rb2.setChecked(True)
-        self.rb2.toggled.connect(lambda:self.radiostate(self.rb2))
-
         plusbutton = QtGui.QPushButton('+', self)
         plusbutton.setCheckable(True)
         plusbutton.setGeometry(40,220,50,30)
@@ -89,12 +74,12 @@ class Example(QtGui.QMainWindow):
         minusbutton=QtGui.QPushButton('-',self)
         minusbutton.setCheckable(True)
         minusbutton.setGeometry(110,220,50,30)
-        minusbutton.clicked.connect(self.addY)
+        minusbutton.clicked.connect(self.glvars.decSitY)
 
         plusbutton2=QtGui.QPushButton('+',self)
         plusbutton2.setCheckable(True)
         plusbutton2.setGeometry(40,260,50,30)
-        plusbutton2.clicked.connect(self.addY)
+        plusbutton2.clicked.connect(self.glvars.addSitZ)
 
         zlbl=QtGui.QLabel('Z',self)
         zlbl.move(95,260)
@@ -102,7 +87,7 @@ class Example(QtGui.QMainWindow):
         minusbutton2=QtGui.QPushButton('-',self)
         minusbutton2.setCheckable(True)
         minusbutton2.setGeometry(110,260,50,30)
-        minusbutton2.clicked.connect(self.addY)
+        minusbutton2.clicked.connect(self.glvars.decSitZ)
 
         menubar = self.menuBar()
         runMenu=menubar.addMenu('&Run')
@@ -124,36 +109,8 @@ class Example(QtGui.QMainWindow):
         self.setWindowIcon(QtGui.QIcon('logo.png'))
         self.show()
 
-    def addY(self):
-        print "Hello"
-
-    def radiostate(self,rb):
-        if rb.text() == "Sit":
-            if rb.isChecked() ==True:
-                print "Sit is selected"
-                sender=self.sender()
-        if rb.text() =="Eat":
-            if rb.isChecked()==True:
-                print "Eat is selected"
-
-
-    def eatOn(self,state):
-        if state==QtCore.Qt.Checked:
-            os.system('testing.py')
-        else:
-            print "Not hello"
-
-    def sitOn(self,state):
-        if state==QtCore.Qt.Checked:
-            self.setWindowTitle('Skinect Gui')
-        else:
-            self.setWindowTitle('')
-
     def startButton(self):
-        try:
-            thread.start_new_thread(os.system('testing.py'))
-        except:
-            print "Unable to start thread"
+        os.system('testing.py')
 
     def otherActionButton(self):
         os.system('otherAction.py')
@@ -162,12 +119,14 @@ class Example(QtGui.QMainWindow):
         self.about=popUpWindow()
         self.about.show()
 
-
 def main():
 
     app=QtGui.QApplication(sys.argv)
     ex=Example()
-    sys.exit(app.exec_())
+    p=Process(target = ex.startButton)
+    p.start()
+    app.exec_()
+
 
 if __name__=='__main__':
     main()
