@@ -365,6 +365,7 @@ def video_frame_ready(frame):
 if __name__=='__main__':
 
     functionsObj = functionsClass()
+
     full_screen = False
 
     draw_skeleton = True
