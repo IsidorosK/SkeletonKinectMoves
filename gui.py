@@ -3,7 +3,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import QThread,pyqtSignal,QObject,pyqtSlot
 import os,time,sys
 from threshold import globalVariables
-from multiprocessing import Process
+import subprocess
 
 class Communicate(QtCore.QObject):
     runApp=QtCore.pyqtSignal()
@@ -110,7 +110,7 @@ class Example(QtGui.QMainWindow):
         self.show()
 
     def startButton(self):
-        os.system('testing.py')
+        subprocess.Popen("testing.py", shell=True)
 
     def otherActionButton(self):
         os.system('otherAction.py')
@@ -123,11 +123,11 @@ def main():
 
     app=QtGui.QApplication(sys.argv)
     ex=Example()
-    p=Process(target = ex.startButton)
-    p.start()
+
     app.exec_()
 
 
 if __name__=='__main__':
     main()
+
 
