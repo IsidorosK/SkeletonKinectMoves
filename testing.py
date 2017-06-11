@@ -40,7 +40,6 @@ import time
 from functions import functionsClass
 import winsound
 
-
 KINECTEVENT = pygame.USEREVENT
 DEPTH_WINSIZE = 320, 240
 VIDEO_WINSIZE = 640, 480
@@ -136,15 +135,12 @@ def draw_skeleton_data(pSkelton, index, positions, width=4):
 
         start = next
 
-
 # recipe to get address of surface: http://archives.seul.org/pygame/users/Apr-2008/msg00218.html
 
 if hasattr(ctypes.pythonapi, 'Py_InitModule4'):
-
     Py_ssize_t = ctypes.c_int
 
 elif hasattr(ctypes.pythonapi, 'Py_InitModule4_64'):
-
     Py_ssize_t = ctypes.c_int64
 
 else:
@@ -161,7 +157,6 @@ _PyObject_AsWriteBuffer.argtypes = [ctypes.py_object,
 
                                     ctypes.POINTER(Py_ssize_t)]
 
-
 def surface_to_array(surface):
     buffer_interface = surface.get_buffer()
 
@@ -177,7 +172,6 @@ def surface_to_array(surface):
     bytes.object = buffer_interface
 
     return bytes
-
 
 def draw_skeletons(skeletons):
     for index, data in enumerate(skeletons):
@@ -365,25 +359,15 @@ def video_frame_ready(frame):
 if __name__=='__main__':
 
     functionsObj = functionsClass()
-
     full_screen = False
-
     draw_skeleton = True
-
     video_display = False
-
     screen_lock = thread.allocate()
-
     screen = pygame.display.set_mode(DEPTH_WINSIZE, 0, 16)
-
     pygame.display.set_caption('Python Kinect Demo')
-
     skeletons = None
-
     screen.fill(THECOLORS["black"])
-
     kinect = nui.Runtime()
-
     kinect.skeleton_engine.enabled = True
 
     def post_frame(frame):
