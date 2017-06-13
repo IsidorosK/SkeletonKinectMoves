@@ -1,9 +1,10 @@
 from PyQt4 import QtGui,QtCore
 from PyQt4.QtGui import *
-from PyQt4.QtCore import QThread,pyqtSignal,QObject,pyqtSlot
-import os,time,sys
+from PyQt4.QtCore import pyqtSignal,QObject,pyqtSlot
+import sys,os
 from threshold import globalVariables
 import subprocess
+from functions import functionsClass
 
 class Communicate(QtCore.QObject):
     runApp=QtCore.pyqtSignal()
@@ -22,17 +23,9 @@ class popUpWindow(QWidget):
         self.setWindowTitle('About Devs')
         self.show()
 
-class PopUpButtons(QWidget):
-
-    def __init__(self):
-        super(PopUpButtons,self).__init__()
-        self.intUI()
-
-    def intUI(self):
-
-        self.setGeometry(500,500,300,150)
-        self.setWindowTitle('Options')
-        self.show()
+class OutputWindow(QtGui.QPlainTextEdit):
+    def write(self, txt):
+        self.appendPlainText(txt)
 
 class Example(QtGui.QMainWindow):
 
@@ -113,17 +106,22 @@ class Example(QtGui.QMainWindow):
         subprocess.Popen("testing.py", shell=True)
 
     def otherActionButton(self):
-        os.system('otherAction.py')
+        subprocess.Popen("otherAction.py", shell=True)
+
 
     def aboutKinect(self):
         self.about=popUpWindow()
         self.about.show()
 
+
+
 def main():
 
     app=QtGui.QApplication(sys.argv)
     ex=Example()
-
+    out = OutputWindow()
+    sys.stdout = out
+    out.show()
     app.exec_()
 
 
