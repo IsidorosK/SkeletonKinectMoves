@@ -4,7 +4,7 @@ from PyQt4.QtCore import pyqtSignal,QObject,pyqtSlot
 import sys,os
 from threshold import globalVariables
 import subprocess
-from functions import functionsClass
+
 
 class Communicate(QtCore.QObject):
     runApp=QtCore.pyqtSignal()
@@ -24,8 +24,15 @@ class popUpWindow(QWidget):
         self.show()
 
 class OutputWindow(QtGui.QPlainTextEdit):
+    def __init__(self):
+        super(OutputWindow,self).__init__()
+        self.setWindowTitle('Kinect Output')
+        self.setGeometry(300,500,350,150)
+
+
     def write(self, txt):
         self.appendPlainText(txt)
+
 
 class Example(QtGui.QMainWindow):
 
