@@ -1,30 +1,25 @@
-
+import sys
 import math
 from threshold import globalVariables
+
 
 class functionsClass():
 
     def __init__(self):
-        pass
+        self.k = globalVariables()
 
     def recognize_sitting(self,totalY,totalZ):
 
-        k = globalVariables()
-        if totalY < k.defaultSitY and totalZ > k.defaultSitZ:
+        if totalY < self.k.defaultSitY and totalZ > self.k.defaultSitZ:
             print "EKATSE o paikths"
-            print k.defaultSitY
-        elif totalY > -0.02854367834 and totalZ > 1.8546612215:
-            print "Player sit"
-        elif totalY < 0.0407887405232 and totalZ < 1.8546612215 and totalZ > 1.2546612215:
-            print totalY
-            print "Kathetai"
-        elif totalY < k.defaultLimitY and totalZ > k.defaultLimitZ:
+            print self.k.defaultSitZ
+        elif totalY < self.k.defaultLimitY and totalZ > self.k.defaultLimitZ:
             print "Paei na katsei or shkwnetai"
-        elif totalY > k.defaultStandY and totalZ > k.defaultStandZ:
+        elif totalY > self.k.defaultStandY and totalZ > self.k.defaultStandZ:
             print "Orthios"
         else:
             print "Den kathetai"
-            print totalY
+            print self.k.defaultSitZ
 
     def write_speed_Joints_To_Txt(self,HipCenterX, HipCenterY, HipCenterZ, HandRightX, HandRightY, HandRightZ, HandLeftX, HandLeftY, HandLeftZ, ElbowLeftX, ElbowLeftY, ElbowLeftZ,
                                   ElbowRightX, ElbowRightY, ElbowRightZ, WristLeftX, WristLeftY, WristLeftZ, WristRightX, WristRightY, WristRightZ, ShoulderLeftX, ShoulderLeftY,
