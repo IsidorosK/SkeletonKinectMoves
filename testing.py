@@ -28,9 +28,7 @@
 
 # permissions and limitations under the License.
 
-import thread
-import itertools
-import ctypes
+import thread,winsound,itertools,ctypes,sys
 from pykinect import nui
 from pykinect.nui import JointId
 import pygame
@@ -38,7 +36,8 @@ from pygame.color import THECOLORS
 from pygame.locals import *
 import time
 from functions import functionsClass
-import winsound
+from gui import OutputWindow
+
 
 KINECTEVENT = pygame.USEREVENT
 DEPTH_WINSIZE = 320, 240
@@ -397,7 +396,7 @@ if __name__=='__main__':
     done = False
     raised=False
     start_time = time.time()
-    k=0
+    k=1
     while not done:
         e = pygame.event.wait()
 
@@ -420,7 +419,6 @@ if __name__=='__main__':
                 totalZ = (headZ + CenterShoulderZ + LeftShoulderZ + RightShoulderZ + CenterHipZ) / 5
 
                 functionsObj.recognize_sitting(totalY,totalZ)
-                #functions.recognize_sitting(totalY, totalZ)
 
                 functionsObj.write_speed_Joints_To_Txt(HipCenterX, HipCenterY, HipCenterZ, HandRightX, HandRightY, HandRightZ,
                                               HandLeftX, HandLeftY, HandLeftZ, ElbowLeftX, ElbowLeftY, ElbowLeftZ
