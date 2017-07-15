@@ -1,6 +1,6 @@
 from PyQt4 import QtGui,QtCore
 from PyQt4.QtGui import *
-from PyQt4.QtCore import pyqtSignal,QObject,pyqtSlot
+from PyQt4.QtCore import pyqtSignal
 import sys,os
 from threshold import globalVariables
 import subprocess
@@ -38,11 +38,12 @@ class Example(QtGui.QMainWindow):
 
     def __init__(self):
         super(Example, self).__init__()
+        self.thresholdObj = globalVariables()
         self.initUI()
 
     def initUI(self):
 
-        self.glvars = globalVariables()
+        #self.glvars = globalVariables()
         self.r=Communicate()
 
         runAction=QAction("Run",self)
@@ -66,7 +67,7 @@ class Example(QtGui.QMainWindow):
         plusbutton = QtGui.QPushButton('+', self)
         plusbutton.setCheckable(True)
         plusbutton.setGeometry(40,220,50,30)
-        plusbutton.clicked.connect(self.glvars.addsitY)
+        plusbutton.clicked.connect(self.thresholdObj.addsitY)
 
         ylbl = QtGui.QLabel('Y', self)
         ylbl.move(95, 220)
@@ -74,12 +75,13 @@ class Example(QtGui.QMainWindow):
         minusbutton=QtGui.QPushButton('-',self)
         minusbutton.setCheckable(True)
         minusbutton.setGeometry(110,220,50,30)
-        minusbutton.clicked.connect(self.glvars.decSitY)
+        minusbutton.clicked.connect(self.thresholdObj.decSitY)
+
 
         plusbutton2=QtGui.QPushButton('+',self)
         plusbutton2.setCheckable(True)
         plusbutton2.setGeometry(40,260,50,30)
-        plusbutton2.clicked.connect(self.glvars.addSitZ)
+        plusbutton2.clicked.connect(self.thresholdObj.addSitZ)
 
         zlbl=QtGui.QLabel('Z',self)
         zlbl.move(95,260)
@@ -87,7 +89,7 @@ class Example(QtGui.QMainWindow):
         minusbutton2=QtGui.QPushButton('-',self)
         minusbutton2.setCheckable(True)
         minusbutton2.setGeometry(110,260,50,30)
-        minusbutton2.clicked.connect(self.glvars.decSitZ)
+        minusbutton2.clicked.connect(self.thresholdObj.decSitZ)
 
         menubar = self.menuBar()
         runMenu=menubar.addMenu('&Run')

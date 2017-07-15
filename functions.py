@@ -5,6 +5,7 @@ import math
 class functionsClass():
 
     #variable = __import__('threshold').globalVariables.defaultSitY
+
     def __init__(self):
         self.denominator = 0.03333333333333333333333333333333
         self.defaultSitY = -0.0336414869782
@@ -14,30 +15,34 @@ class functionsClass():
         self.defaultStandY = 0.35709164381
         self.defaultStandZ = 1.8246612215
 
-    def setDefaultSitY(self,defaultSitY):
+
+    def setSitY(self,defaultSitY):
         self.defaultSitY = defaultSitY
 
-    def getDefaultSitY(self):
+    def getSitY(self):
         return self.defaultSitY
 
-    def setDefaultSitZ(self,defaultSitZ):
-        self.defaultSitZ = defaultSitZ
-
-    def getDefaultSitZ(self):
-        return self.defaultSitZ
-
     def recognize_sitting(self,totalY,totalZ):
-
         if totalY < self.defaultSitY and totalZ > self.defaultSitZ:
             print "EKATSE o paikths"
-            print self.defaultSitY
+
         elif totalY < self.defaultLimitY and totalZ > self.defaultLimitZ:
             print "Paei na katsei or shkwnetai"
         elif totalY > self.defaultStandY and totalZ > self.defaultStandZ:
             print "Orthios"
+            print self.defaultSitY
         else:
             print "Den kathetai"
             print self.defaultSitY
+
+
+
+    def recognize_hand_gesture(self,HandRightY):
+
+        if HandRightY >= 0.201000000000:
+            print "Right hand rised"
+        print HandRightY
+
 
     def write_speed_Joints_To_Txt(self,HipCenterX, HipCenterY, HipCenterZ, HandRightX, HandRightY, HandRightZ, HandLeftX, HandLeftY, HandLeftZ, ElbowLeftX, ElbowLeftY, ElbowLeftZ,
                                   ElbowRightX, ElbowRightY, ElbowRightZ, WristLeftX, WristLeftY, WristLeftZ, WristRightX, WristRightY, WristRightZ, ShoulderLeftX, ShoulderLeftY,

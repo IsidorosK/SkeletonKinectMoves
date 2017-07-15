@@ -419,6 +419,7 @@ if __name__=='__main__':
                 totalZ = (headZ + CenterShoulderZ + LeftShoulderZ + RightShoulderZ + CenterHipZ) / 5
 
                 functionsObj.recognize_sitting(totalY,totalZ)
+                #functionsObj.recognize_hand_gesture(HandRightY)
 
                 functionsObj.write_speed_Joints_To_Txt(HipCenterX, HipCenterY, HipCenterZ, HandRightX, HandRightY, HandRightZ,
                                               HandLeftX, HandLeftY, HandLeftZ, ElbowLeftX, ElbowLeftY, ElbowLeftZ
