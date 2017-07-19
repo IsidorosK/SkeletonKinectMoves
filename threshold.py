@@ -1,7 +1,8 @@
-from functions import functionsClass
+from testing import functionsObj
+
 class globalVariables:
 
-    functionObj = functionsClass()
+    #functionObj = functionsClass()
     def __init__(self):
         self.denominator = 0.03333333333333333333333333333333
         self.defaultSitY = -0.0336414869782
@@ -13,10 +14,11 @@ class globalVariables:
 
 
     def addsitY(self):
-        #globalVariables.defaultSitY = globalVariables.defaultSitY + 0.0100000000000
-        self.defaultSitY= self.defaultSitY + 0.0100000000000
+        x = functionsObj.defaultSitY = functionsObj.defaultSitY + 0.0100000000000
+        functionsObj.setSitY(x)
+       # self.defaultSitY= self.defaultSitY + 0.0100000000000
         print self.defaultSitY
-        self.functionObj.setSitY(self.defaultSitY)
+       # self.functionObj.setSitY(self.defaultSitY)
 
 
     def decSitY(self):
