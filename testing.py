@@ -36,7 +36,6 @@ from pygame.color import THECOLORS
 from pygame.locals import *
 import time
 from functions import functionsClass
-from gui import OutputWindow
 
 
 KINECTEVENT = pygame.USEREVENT
@@ -356,7 +355,6 @@ def video_frame_ready(frame):
         pygame.display.update()
 
 if __name__=='__main__':
-
     functionsObj = functionsClass()
     full_screen = False
     draw_skeleton = True

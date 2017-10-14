@@ -3,6 +3,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import pyqtSignal
 import sys,os
 from threshold import globalVariables
+# from functions import functionsClass
 import subprocess
 
 
@@ -38,7 +39,7 @@ class Example(QtGui.QMainWindow):
 
     def __init__(self):
         super(Example, self).__init__()
-        self.thresholdObj = globalVariables()
+
         self.initUI()
 
     def initUI(self):
@@ -53,6 +54,7 @@ class Example(QtGui.QMainWindow):
         helpAction=QAction("About",self)
 
         self.statusBar()
+        self.thresholdObj = globalVariables()
 
         startbutton=QtGui.QPushButton('Sit',self)
         startbutton.setCheckable(True)
@@ -115,13 +117,15 @@ class Example(QtGui.QMainWindow):
         subprocess.Popen("testing.py", shell=True)
 
     def otherActionButton(self):
-        subprocess.Popen("otherAction.py", shell=True)
+        subprocess.Popen('otherAction.py',shell=True)
 
 
     def aboutKinect(self):
         self.about=popUpWindow()
         self.about.show()
 
+    def setOutput(self,txt):
+        self.txt = txt
 
 
 def main():

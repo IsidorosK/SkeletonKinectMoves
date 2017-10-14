@@ -1,6 +1,6 @@
 import sys
 import math
-
+from gui import OutputWindow
 
 class functionsClass():
 
@@ -14,7 +14,7 @@ class functionsClass():
         self.defaultLimitZ = 1.8546612215
         self.defaultStandY = 0.35709164381
         self.defaultStandZ = 1.8246612215
-
+        #self.outPutWindow = OutputWindow()
 
     def setSitY(self,defaultSitY):
         self.defaultSitY = defaultSitY
@@ -24,24 +24,49 @@ class functionsClass():
 
     def recognize_sitting(self,totalY,totalZ):
         if totalY < self.defaultSitY and totalZ > self.defaultSitZ:
-            print "EKATSE o paikths"
+            #self.outPutWindow.write("Human Sitting")
+            print "Human sitting"
 
         elif totalY < self.defaultLimitY and totalZ > self.defaultLimitZ:
-            print "Paei na katsei or shkwnetai"
+            print "Human almost sitting or rises"
         elif totalY > self.defaultStandY and totalZ > self.defaultStandZ:
-            print "Orthios"
-            print self.defaultSitY
+            print "Human standing"
+            #print self.defaultSitY
         else:
-            print "Den kathetai"
-            print self.defaultSitY
+            print "Not sitting"
+            #print self.defaultSitY
 
 
+    def addsitY(self):
+       # self.defaultSitY= self.defaultSitY + 0.0100000000000
+        print self.defaultSitY
+       # self.functionObj.setSitY(self.defaultSitY)
 
-    def recognize_hand_gesture(self,HandRightY):
 
+    def decSitY(self):
+        self.defaultSitY = self.defaultSitY - 0.0100000000000
+        print self.defaultSitY
+        return self.defaultSitY
+
+    def addSitZ(self):
+        defaultSitZ = self.defaultSitZ + 0.0100000000000
+        print self.defaultSitZ
+        return defaultSitZ
+
+    def decSitZ(self):
+        self.defaultSitZ = self.defaultSitZ - 0.0100000000000
+        print self.defaultSitZ
+        return self.defaultSitZ
+
+
+    def recognize_hand_gesture(self,HandRightY,HandLeftY):
+        #output = Example()
         if HandRightY >= 0.201000000000:
             print "Right hand rised"
-        print HandRightY
+        if HandLeftY >= 0.82000000000:
+            print "Left hand rised"
+            #output.setOutput(sys.stdout)
+        #print HandLeftY
 
 
     def write_speed_Joints_To_Txt(self,HipCenterX, HipCenterY, HipCenterZ, HandRightX, HandRightY, HandRightZ, HandLeftX, HandLeftY, HandLeftZ, ElbowLeftX, ElbowLeftY, ElbowLeftZ,
