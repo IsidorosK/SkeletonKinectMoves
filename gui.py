@@ -18,10 +18,16 @@ class popUpWindow(QWidget):
         self.initUI()
 
     def initUI(self):
-        lbl=QtGui.QLabel('<b>This is my thesis project </b>',self)
+        lbl=QtGui.QLabel('<b>Useful commands </b>',self)
         lbl.move(15,10)
+        controls = QtGui.QLabel('Controls:\nd - Switch to depth view\n'
+                                'v - Switch to video view\n'
+                                's - Toggle displaing of the skeleton\n'
+                                'u - Increase elevation angle\n'
+                                'j - Decrease elevation angle',self)
+        controls.move(15,30)
         self.setGeometry(500,500,400,150)
-        self.setWindowTitle('About Devs')
+        self.setWindowTitle('Help Kinect')
         self.show()
 
 class OutputWindow(QtGui.QPlainTextEdit):

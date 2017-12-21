@@ -1,4 +1,4 @@
-from testing import functionsObj
+
 
 class globalVariables:
 
@@ -14,9 +14,9 @@ class globalVariables:
 
 
     def addsitY(self):
-        x = functionsObj.defaultSitY = functionsObj.defaultSitY + 0.0100000000000
-        functionsObj.setSitY(x)
-       # self.defaultSitY= self.defaultSitY + 0.0100000000000
+        #x = functionsObj.defaultSitY = functionsObj.defaultSitY + 0.0100000000000
+        #functionsObj.setSitY(x)
+        self.defaultSitY= self.defaultSitY + 0.0100000000000
         print self.defaultSitY
        # self.functionObj.setSitY(self.defaultSitY)
 
